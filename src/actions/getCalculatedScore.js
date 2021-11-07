@@ -1,0 +1,10 @@
+export const GET_CALCULATED_SCORE_SUCCESS = 'GET_CALCULATED_SCORE_SUCCESS';
+export const GET_CALCULATED_SCORE_FAILURE = 'GET_CALCULATED_SCORE_FAILURE';
+export const GET_CALCULATED_SCORE_REQUEST = 'GET_CALCULATED_SCORE_REQUEST';
+
+export const getCalulatedScore = () => {
+  return {
+    type: GET_CALCULATED_SCORE_SUCCESS,
+    score: 69,
+  };
+};

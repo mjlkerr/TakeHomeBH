@@ -10,7 +10,7 @@ const App = props => {
   useEffect(() => {}, []);
   return (
     <Provider store={store}>
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor: '#EFF7DE', height: '100%'}}>
         <View contentInsetAdjustmentBehavior="automatic">
           <CalculateScreen />
         </View>

@@ -7,7 +7,17 @@ export const populateDropDowns = () => {
   const timesArray = [];
 
   for (let minutes = 0; minutes <= totalMinutes; minutes = minutes + 30) {
-    timesArray.push({label: `${minutes} Minutes`, value: minutes});
+    let hours = Math.floor(minutes / 60);
+    if (minutes % 60 === 30 && minutes > 30) {
+      timesArray.push({label: `${hours} Hours and 30 Minutes`, value: minutes});
+    } else if (minutes % 60 === 0 && minutes > 30) {
+      timesArray.push({label: `${hours} Hours`, value: minutes});
+    } else {
+      timesArray.push({
+        label: `${minutes} Minutes`,
+        value: minutes,
+      });
+    }
   }
 
   return {

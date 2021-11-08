@@ -5,20 +5,25 @@ import Dropdown from './Dropdown';
 import {populateDropDowns} from '../actions/populateDropDowns';
 
 const CalculateScreen = props => {
-  console.log(props);
-  return (
-    <View>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Big Health Take Home Test</Text>
+  const {populateDropDowns, times} = props;
+  useEffect(() => {
+    populateDropDowns();
+  }, [populateDropDowns]);
+  if (times) {
+    return (
+      <View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Big Health Take Home Test</Text>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Dropdown times={times} />
+        </View>
+        <View style={styles.sectionContainer}>
+          <Dropdown times={times} />
+        </View>
       </View>
-      <View style={styles.sectionContainer}>
-        <Dropdown />
-      </View>
-      <View style={styles.sectionContainer}>
-        <Dropdown />
-      </View>
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -48,6 +53,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = ({calculate}) => ({
   possible: calculate.possible,
+  times: calculate.times,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalculateScreen);

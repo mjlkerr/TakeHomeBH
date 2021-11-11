@@ -1,25 +1,27 @@
 import DropDownPicker from 'react-native-dropdown-picker';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const Dropdown = props => {
-  const {times} = props;
-  const [open, setOpen] = useState(false);
+  const {times, open, onPress, label} = props;
+  const [isOpen, setOpen] = useState(open);
   const [value, setValue] = useState(null);
   const [dropdownTimes, setTimes] = useState(times);
-  // const [items, setItems] = useState([
-  //   {label: '0 Minutes', value: 0},
-  //   {label: '30 Minutes', value: 30},
-  //   {label: '1 Hour', value: 60},
-  //   {label: '1 Hour and 30 Minutes', value: 90},
-  // ]);
+
+  useEffect(() => {
+    onPress(label, value);
+  }, [label, onPress, value]);
   return (
     <DropDownPicker
-      open={open}
+      open={isOpen}
       value={value}
       items={times}
       setOpen={setOpen}
       setValue={setValue}
       setItems={setTimes}
+      dropDownContainerStyle={{
+        zIndex: 3000,
+        maxHeight: 120,
+      }}
     />
   );
 };

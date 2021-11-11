@@ -4,9 +4,20 @@ import {
   POPULATE_DROPDOWN_REQUEST,
 } from '../actions/populateDropDowns';
 
+import {
+  GET_CALCULATED_SCORE_SUCCESS,
+  GET_CALCULATED_SCORE_REQUEST,
+  GET_CALCULATED_SCORE_FAILURE,
+} from '../actions/getCalculatedScore';
+
+import {SET_ASLEEP_MINUTES, SET_IN_BED_MINUTES} from '../actions/setMinutes';
+
 const INITIAL_STATE = {
   times: [],
   isLoading: false,
+  score: 0,
+  minutesInBed: 0,
+  minutesAsleep: 0,
 };
 
 const calculateReducer = (state = INITIAL_STATE, action) => {
@@ -26,6 +37,21 @@ const calculateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+    case GET_CALCULATED_SCORE_SUCCESS:
+      return {
+        ...state,
+        score: action.score,
+      };
+    case SET_ASLEEP_MINUTES:
+      return {
+        ...state,
+        minutesAsleep: action.minutesAsleep,
+      };
+    case SET_IN_BED_MINUTES:
+      return {
+        ...state,
+        minutesInBed: action.minutesInBed,
       };
     default:
       return state;

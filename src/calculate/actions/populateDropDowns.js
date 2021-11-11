@@ -5,7 +5,6 @@ export const POPULATE_DROPDOWN_REQUEST = 'POPULATE_DROPDOWN_REQUEST';
 export const populateDropDowns = () => {
   const totalMinutes = 1440;
   const timesArray = [];
-  const delay = ms => new Promise(res => setTimeout(res, ms));
 
   return async (dispatch, getState) => {
     try {
@@ -31,7 +30,10 @@ export const populateDropDowns = () => {
         }
       }
       //faking waiting for the api call to return
-      await delay(3000);
+      await fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json())
+        .then(json => console.log(json));
+
       dispatch({
         type: POPULATE_DROPDOWN_SUCCESS,
         times: timesArray,

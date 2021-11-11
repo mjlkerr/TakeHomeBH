@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
+import React from 'react';
+import {Pressable, Text} from 'react-native';
 import {default as CalculateButtonStyles} from './styles/CalculateButtonStyles';
 
-const {calculateButton, calculateButtonDisabled, buttonText} =
-  CalculateButtonStyles;
+const {calculateButton, buttonText} = CalculateButtonStyles;
 
 const CalculateButton = props => {
-  const {enabled, onPress} = props;
-  const buttonStyle = enabled ? calculateButton : calculateButtonDisabled;
+  const {disabled, onPress} = props;
+  const color = disabled ? '#ADA0A6' : '#6BAB90';
   return (
-    <Pressable style={buttonStyle} onPress={onPress}>
+    <Pressable
+      style={[calculateButton, {backgroundColor: color}]}
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={buttonText}>Calculate</Text>
     </Pressable>
   );

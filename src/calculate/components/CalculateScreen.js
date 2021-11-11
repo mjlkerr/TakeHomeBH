@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, Text, View} from 'react-native';
 import Dropdown from './Dropdown';
 import CalculateButton from './CalculateButton';
 import {populateDropDowns} from '../actions/populateDropDowns';
 import {setMinutes} from '../actions/setMinutes';
+import {getCalculatedScore} from '../actions/getCalculatedScore';
 
 const CalculateScreen = props => {
   const {
@@ -14,13 +15,25 @@ const CalculateScreen = props => {
     minutesAsleep,
     minutesInBed,
     loading,
+    getCalculatedScore,
+    score,
   } = props;
   useEffect(() => {
     populateDropDowns();
   }, [populateDropDowns]);
 
+  const [calculateEnabled, setCalculateEnabled] = useState(false);
   console.log(minutesAsleep);
   console.log(minutesInBed);
+
+  useEffect(() => {
+    setCalculateEnabled(minutesAsleep && minutesInBed);
+  }, [minutesAsleep, minutesInBed]);
+
+  const calculateScore = () => {
+    getCalculatedScore(minutesInBed, minutesAsleep);
+    console.log(score);
+  };
 
   if (!loading) {
     return (
@@ -37,7 +50,10 @@ const CalculateScreen = props => {
           <Dropdown times={times} onPress={setMinutes} label={'asleep'} />
         </View>
         <View style={styles.sectionContainer}>
-          <CalculateButton />
+          <CalculateButton
+            enabled={calculateEnabled}
+            onPress={calculateScore}
+          />
         </View>
       </View>
     );
@@ -69,6 +85,8 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
   populateDropDowns: () => dispatch(populateDropDowns()),
   setMinutes: (label, minutes) => dispatch(setMinutes(label, minutes)),
+  getCalculatedScore: (durationInBed, durationAsleep) =>
+    dispatch(getCalculatedScore(durationInBed, durationAsleep)),
 });
 
 const mapStateToProps = ({calculate}) => ({
@@ -77,6 +95,7 @@ const mapStateToProps = ({calculate}) => ({
   minutesInBed: calculate.minutesInBed,
   minutesAsleep: calculate.minutesAsleep,
   loading: calculate.loading,
+  score: calculate.score,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalculateScreen);

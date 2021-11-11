@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   calculateButton: {
     display: 'flex',
-    backgroundColor: '#6BAB90',
     height: 50,
     width: '100%',
     alignSelf: 'center',
@@ -13,7 +12,6 @@ export default StyleSheet.create({
   },
   calculateButtonDisabled: {
     display: 'flex',
-    backgroundColor: '#ADA0A6',
     height: 50,
     width: '100%',
     alignSelf: 'center',

@@ -4,7 +4,6 @@ export const GET_CALCULATED_SCORE_REQUEST = 'GET_CALCULATED_SCORE_REQUEST';
 
 export const getCalculatedScore = (durationInBed, durationAsleep) => {
   const score = 100 * (durationInBed / durationAsleep);
-  const delay = ms => new Promise(res => setTimeout(res, ms));
 
   return async (dispatch, getState) => {
     try {
@@ -12,7 +11,20 @@ export const getCalculatedScore = (durationInBed, durationAsleep) => {
         type: GET_CALCULATED_SCORE_REQUEST,
       });
 
-      await delay(3000);
+      //doing a POST to a test api, would do real post here with our data
+      await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: 'foo',
+          body: 'bar',
+          userId: 1,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then(response => response.json())
+        .then(json => console.log(json));
 
       dispatch({
         type: GET_CALCULATED_SCORE_SUCCESS,

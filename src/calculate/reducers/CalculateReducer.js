@@ -28,11 +28,13 @@ const calculateReducer = (state = INITIAL_STATE, action) => {
         times: action.times,
         isLoading: false,
       };
+    case GET_CALCULATED_SCORE_FAILURE:
     case POPULATE_DROPDOWN_FAILURE:
       return {
         ...state,
         isLoading: false,
       };
+    case GET_CALCULATED_SCORE_REQUEST:
     case POPULATE_DROPDOWN_REQUEST:
       return {
         ...state,
@@ -42,6 +44,7 @@ const calculateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         score: action.score,
+        isLoading: false,
       };
     case SET_ASLEEP_MINUTES:
       return {

@@ -5,8 +5,7 @@ export const POPULATE_DROPDOWN_REQUEST = 'POPULATE_DROPDOWN_REQUEST';
 export const populateDropDowns = () => {
   const totalMinutes = 1440;
   const timesArray = [];
-
-  //I would make a call to get our values here, but for let's fake it.
+  const delay = ms => new Promise(res => setTimeout(res, ms));
 
   return async (dispatch, getState) => {
     try {
@@ -14,6 +13,7 @@ export const populateDropDowns = () => {
         type: POPULATE_DROPDOWN_REQUEST,
       });
 
+      //I would make a call to get our values here, but let's fake it.
       for (let minutes = 0; minutes <= totalMinutes; minutes = minutes + 30) {
         let hours = Math.floor(minutes / 60);
         if (minutes % 60 === 30 && minutes > 30) {
@@ -30,6 +30,8 @@ export const populateDropDowns = () => {
           });
         }
       }
+      //faking waiting for the api call to return
+      await delay(3000);
       dispatch({
         type: POPULATE_DROPDOWN_SUCCESS,
         times: timesArray,

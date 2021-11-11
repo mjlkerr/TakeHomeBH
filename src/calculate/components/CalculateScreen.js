@@ -6,6 +6,7 @@ import CalculateButton from './CalculateButton';
 import {populateDropDowns} from '../actions/populateDropDowns';
 import {setMinutes} from '../actions/setMinutes';
 import {getCalculatedScore} from '../actions/getCalculatedScore';
+import Loader from './Loader';
 
 const CalculateScreen = props => {
   const {
@@ -23,8 +24,6 @@ const CalculateScreen = props => {
   }, [populateDropDowns]);
 
   const [calculateEnabled, setCalculateEnabled] = useState(false);
-  console.log(minutesAsleep);
-  console.log(minutesInBed);
 
   useEffect(() => {
     setCalculateEnabled(minutesAsleep && minutesInBed);
@@ -35,29 +34,26 @@ const CalculateScreen = props => {
     console.log(score);
   };
 
-  if (!loading) {
-    return (
+  return (
+    <View>
+      {loading ? <Loader /> : null}
       <View>
-        <View>
-          <Text style={styles.sectionTitle}>Big Health Take Home Test</Text>
-        </View>
-        <View style={styles.sectionContainer}>
-          <Text>Duration in bed</Text>
-          <Dropdown times={times} onPress={setMinutes} label={'in_bed'} />
-        </View>
-        <View style={styles.sectionContainer}>
-          <Text>Duration asleep</Text>
-          <Dropdown times={times} onPress={setMinutes} label={'asleep'} />
-        </View>
-        <View style={styles.sectionContainer}>
-          <CalculateButton
-            enabled={calculateEnabled}
-            onPress={calculateScore}
-          />
-        </View>
+        <Text style={styles.sectionTitle}>Big Health Take Home Test</Text>
       </View>
-    );
-  }
+      <View style={styles.sectionContainer}>
+        <Text>Duration in bed</Text>
+        <Dropdown times={times} onPress={setMinutes} label={'in_bed'} />
+      </View>
+      <View style={styles.sectionContainer}>
+        <Text>Duration asleep</Text>
+        <Dropdown times={times} onPress={setMinutes} label={'asleep'} />
+      </View>
+      <View style={styles.sectionContainer}>
+        <CalculateButton enabled={calculateEnabled} onPress={calculateScore} />
+        <Text style={styles.sectionTitle}>Score: {score}</Text>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -94,7 +90,7 @@ const mapStateToProps = ({calculate}) => ({
   times: calculate.times,
   minutesInBed: calculate.minutesInBed,
   minutesAsleep: calculate.minutesAsleep,
-  loading: calculate.loading,
+  loading: calculate.isLoading,
   score: calculate.score,
 });
 

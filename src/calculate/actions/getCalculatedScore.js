@@ -3,7 +3,7 @@ export const GET_CALCULATED_SCORE_FAILURE = 'GET_CALCULATED_SCORE_FAILURE';
 export const GET_CALCULATED_SCORE_REQUEST = 'GET_CALCULATED_SCORE_REQUEST';
 
 export const getCalculatedScore = (durationInBed, durationAsleep) => {
-  const score = 100 * (durationInBed / durationAsleep);
+  const score = 100 * durationInBed / durationAsleep;
 
   return async (dispatch, getState) => {
     try {

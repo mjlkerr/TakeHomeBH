@@ -35,7 +35,6 @@ const calculateReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
       };
     case GET_CALCULATED_SCORE_REQUEST:
-    case POPULATE_DROPDOWN_REQUEST:
       return {
         ...state,
         isLoading: true,

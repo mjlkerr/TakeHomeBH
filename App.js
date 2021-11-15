@@ -1,13 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import createStore from './src/index';
 
 import CalculateScreen from './src/calculate/components/CalculateScreen';
 
 const App = props => {
   const store = createStore();
-  useEffect(() => {}, []);
   return (
     <Provider store={store}>
       <SafeAreaView style={{backgroundColor: '#EFF7DE', height: '100%'}}>

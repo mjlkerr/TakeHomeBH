@@ -55,7 +55,9 @@ const CalculateScreen = props => {
           disabled={!calculateEnabled}
           onPress={calculateScore}
         />
-        <Text style={sectionTitle}>Score: {score}</Text>
+        <Text style={sectionTitle}>
+          Score: {loading ? 'Loading...' : score}
+        </Text>
       </View>
     </View>
   );

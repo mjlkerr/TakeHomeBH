@@ -8,6 +8,7 @@ export const populateDropDowns = () => {
 
   return async (dispatch, getState) => {
     try {
+      // if we're getting the dropdown info from the backend we'll set our loading variable here on request
       dispatch({
         type: POPULATE_DROPDOWN_REQUEST,
       });
